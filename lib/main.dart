@@ -20,8 +20,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Crypto Wallet',
-      
       initialRoute: FirebaseAuth.instance.currentUser == null  ? MyRoutes.LoginRoute : MyRoutes.HomePage,
       // initialRoute: MyRoutes.HomeViewRoute,
       routes: {
@@ -30,8 +28,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.HomeViewRoute:(context)=>HomeView(),
         MyRoutes.Register:(context)=>RegisterPage(),
         MyRoutes.RestaurantLogin:(context)=>RestaurantLogin(),
-        
-               MyRoutes.HomePage:(context)=>HomePage(),
+        MyRoutes.HomePage:(context)=>HomePage(),
 
 
         // MyRoutes.SignupRoute:(context)=>SignupPage(),

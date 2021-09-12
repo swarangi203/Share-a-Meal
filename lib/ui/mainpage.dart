@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      fixedSize: Size(150, 46)),
+                      ),
                   onPressed: () {
                     Navigator.pushNamed(context, MyRoutes.RestaurantLogin);
                   },
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      fixedSize: Size(150, 46)),
+                      ),
                   onPressed: () {},
                   child: Text("NGO")),
               SizedBox(
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      fixedSize: Size(150, 46)),
+                      ),
                   onPressed: () {},
                   child: Text("Admin")),
               SizedBox(
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      fixedSize: Size(150, 46)),
+                      ),
                   onPressed: () {
                     FirebaseAuth.instance.signOut();
                     Navigator.pushNamed(context, MyRoutes.LoginRoute);

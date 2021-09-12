@@ -127,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        fixedSize: Size(150, 46)),
+                        ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         // use the information provided
