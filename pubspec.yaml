@@ -24,11 +24,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  firebase_core: "^0.7.0"
-  cloud_firestore: "^0.16.0+1"
-  firebase_auth: "^0.20.1"
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.1.1
   font_awesome_flutter: ^9.1.0
   animated_splash: ^1.0.0
+  dropdown_formfield: ^0.1.3
+  firebase_database: ^7.2.2
   
 
 
@@ -67,12 +68,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: BonaNova
+      fonts:
+        - asset: lib/fonts/BonaNova-Regular.ttf
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
