@@ -346,7 +346,8 @@ void registerUser(String uid, String role, String name, String email, String add
     'name': name,
     'email': email,
     'referral': contact,
-    'role': "admin"
+    'role': "admin",
+    'approval': 'no'
   };
   reference.child(uid).set(userdata);
 }

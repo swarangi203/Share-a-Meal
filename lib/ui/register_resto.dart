@@ -68,11 +68,13 @@ class _RegisterRestoState extends State<RegisterResto> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.grey[900],
         appBar:
-            AppBar(title: Text("Share A Meal"), backgroundColor: Colors.green, leading: IconButton(
+            AppBar(title: Text("Share A Meal", style: TextStyle(fontFamily: "BonaNova",)), backgroundColor: Colors.black, leading: IconButton(
               onPressed: () {},
               icon: Icon(Icons.restaurant_menu_outlined),
-            ),),
+            ),
+            ),
         body: SingleChildScrollView(
           child: Center(
             child: Form(
@@ -98,17 +100,17 @@ class _RegisterRestoState extends State<RegisterResto> {
                         controller: _nameField,
                         decoration: InputDecoration(
                           labelText: 'Name of the Restaurant',
-                          hintText: 'Enter name of the Restaurant',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
@@ -136,17 +138,18 @@ class _RegisterRestoState extends State<RegisterResto> {
                         controller: _emailField,
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          hintText: 'Enter your Email',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
@@ -173,17 +176,18 @@ class _RegisterRestoState extends State<RegisterResto> {
                         controller: _contactField,
                         decoration: InputDecoration(
                           labelText: 'Contact Number',
-                          hintText: 'Enter your Contact Number',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
+                          hintStyle: TextStyle(color: Colors.white60),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                                 BorderSide(color: Colors.black, width: 1),
                           ),
@@ -205,16 +209,16 @@ class _RegisterRestoState extends State<RegisterResto> {
                           if (value.isEmpty) {
                             return "Address can't be empty";
                           }
-
                           return null;
                         },
                         controller: _addressField,
                         decoration: InputDecoration(
                           labelText: 'Address',
-                          hintText: 'Enter your Address',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide:
@@ -237,6 +241,7 @@ class _RegisterRestoState extends State<RegisterResto> {
                     height: 55,
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     decoration: BoxDecoration(
+                      color: Colors.grey[800],
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(
                           color: Colors.black,
@@ -245,20 +250,19 @@ class _RegisterRestoState extends State<RegisterResto> {
                     ),
                     child: Center(
                       child: DropdownButton(
+                        dropdownColor: Colors.grey[800],
                         value: _user == null ? null : _dropdownValues[_user],
-                        hint: new Text('Select a City'),
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
+                        hint: new Text('Select a City', style: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),),
+                        icon: Icon(Icons.arrow_drop_down, color: Colors.white60,),
                         elevation: 16,
                         underline: Container(
                           height: 0,
-                          color: Colors.deepPurpleAccent,
                         ),
                         items: _dropdownValues
                             .map((String value) => DropdownMenuItem<String>(
                           value: value,
-                          child: new Text(value),
-                        )).toList(),
+                          child: new Text(value, style: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),),
+                        ),).toList(),
                         isExpanded: false,
                         onChanged: (value) {
                           setState(() {
@@ -292,10 +296,11 @@ class _RegisterRestoState extends State<RegisterResto> {
                         controller: _passwordField,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          hintText: 'Enter your Password',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide:
@@ -318,7 +323,7 @@ class _RegisterRestoState extends State<RegisterResto> {
                     height: 50,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(35),
                           ),
@@ -352,7 +357,7 @@ class _RegisterRestoState extends State<RegisterResto> {
                                   content: Text(
                                     "Could not SignUp, already have an account? ",
                                     style: TextStyle(
-                                        fontSize: 20, fontFamily: "BonaNova"),
+                                        fontSize: 20, fontFamily: "BonaNova", color: Colors.teal),
                                   ),
                                   actions: <Widget>[
                                     // ignore: deprecated_member_use
@@ -389,7 +394,7 @@ class _RegisterRestoState extends State<RegisterResto> {
                     },
                     child: new Text(
                       "Already have an account ? SignIn",
-                      style: TextStyle(fontSize: 20, fontFamily: "BonaNova"),
+                      style: TextStyle(fontSize: 20, fontFamily: "BonaNova", color: Colors.teal),
                     ),
                   ),
                   SizedBox(
@@ -434,7 +439,14 @@ void registerUser(String uid, String role, String name, String email, String add
     'address': address,
     'contact': contact,
     'role': "Restaurant",
-    'city': city
+    'city': city,
+    'approval': 'no',
+    'description': "",
+    'rating': "0",
+    'profilePic': "",
+    'ngos': "0",
+    'authentication': "",
+    'foodquality': ""
   };
   reference.child(uid).set(userdata);
 }

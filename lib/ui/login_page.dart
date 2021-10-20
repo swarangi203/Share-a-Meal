@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/net/flutterfire.dart';
@@ -8,17 +9,20 @@ import 'package:sampleproject/ui/register_admin.dart';
 import 'package:sampleproject/ui/register_ngo.dart';
 import 'package:sampleproject/ui/register_resto.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
+import 'package:sampleproject/ui/resto_profile.dart';
 import 'package:sampleproject/ui/routes.dart';
 
 import 'home_view.dart';
 
 class LoginPage extends StatefulWidget {
   final String text;
+
   LoginPage({Key key, @required this.text}) : super(key: key);
   @override
   _LoginPageState createState() => _LoginPageState(this.text);
 }
-
+DatabaseReference reference;
+String role;
 class _LoginPageState extends State<LoginPage> {
   String temp;
 
@@ -34,18 +38,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState(){
     super.initState();
-    DatabaseReference reference = FirebaseDatabase.instance.reference().child("Users");
-    reference.once().then((value) => null)
-    //uid
-    //  role: "blah" i want blah ki value fhaad!
-    // kya chahiye idhar bata merko
+
+
   }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          title: Text("Login Page"),
+          backgroundColor: Colors.black,
+          leading: Icon(Icons.restaurant_menu),
+          title: Text("Share A Meal", style: TextStyle(color: Colors.white, fontFamily: "BonaNova"),),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -61,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Text(
                     'Login ',
-                    style: TextStyle(fontSize: 30, fontFamily: "BonaNova"),
+                    style: TextStyle(fontSize: 30, fontFamily: "BonaNova", color: Colors.teal),
                   ),
                   SizedBox(
                     height: 30,
@@ -83,10 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _emailField,
                         decoration: InputDecoration(
                           labelText: 'Email',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
                           hintText: 'Enter your Email',
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(color: Colors.black, width: 1),
@@ -121,10 +126,11 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordField,
                         decoration: InputDecoration(
                           labelText: 'Password',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
                           hintText: 'Enter your Password',
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide: BorderSide(color: Colors.black, width: 1),
@@ -145,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent,
+                        primary: Colors.black87,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -158,36 +164,58 @@ class _LoginPageState extends State<LoginPage> {
                           bool shouldNavigate =
                               await signIn(_emailField.text, _passwordField.text);
                           if (shouldNavigate) {
-                            if(temp=="resto")
-                              {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => RestoDashboard(),
-                                  ),
-                                );
-                              }
-                            else if(temp=="ngo")
-                              {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NgoDashboard(),
-                                  ),
-                                );
-                              }
-                            else if(temp=="admin")
-                            {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AdminDashboard(),
-                                ),
-                              );
-                            }
+                            setState(() {
+                              reference = FirebaseDatabase.instance.reference().child("Users").child(FirebaseAuth.instance.currentUser.uid);
+                              reference.once().then((DataSnapshot snapshot){
+                                Map<dynamic, dynamic> values = snapshot.value;
+                                role = values["role"];
+                                print(role);
+                                if (role == "Restaurant"&&temp == "Restaurant") {
+                                  Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RestoDashboard(),
+                                    ),
+                                  );
+                                }
+                                else if (role == "NGO"&&temp == "NGO") {
+                                  Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NgoDashboard(),
+                                    ),
+                                  );
+                                }
+                                else if (role == "admin"&&temp == "admin") {
+                                  Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AdminDashboard(),
+                                    ),
+                                  );
+                                }else{
+                                  Navigator.pop(context);
+                                  return showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text("Error"),
+                                      content: Text("Are you registered as $temp?"),
+                                      actions: <Widget>[
+                                        // ignore: deprecated_member_use
+                                        FlatButton(
+                                            onPressed: () {
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            child: Text("Ok"))
+                                      ],
+                                    ),
+                                  );
+                                }
+                              });
+                            });
 
                           } else {
                             Navigator.pop(context);
@@ -218,14 +246,14 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   new GestureDetector(
                     onTap: () {
-                      if (temp == "resto") {
+                      if (temp == "Restaurant") {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => RegisterResto(text: temp),
                             ));
                       }
-                      else if(temp == "ngo") {
+                      else if(temp == "NGO") {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -237,13 +265,12 @@ class _LoginPageState extends State<LoginPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => Registeradmin(text: temp),
-                            ));
-
+                            ),);
                       }
                     },
                     child: new Text(
-                      "Don't have an account ? create one ",
-                      style: TextStyle(fontSize: 20, fontFamily: "BonaNova"),
+                      "Don't have an account ? Create one",
+                      style: TextStyle(fontSize: 15, fontFamily: "BonaNova", color: Colors.teal),
                     ),
                   ),
                 ],
@@ -264,7 +291,7 @@ showLoaderDialog(BuildContext context) {
             valueColor: AlwaysStoppedAnimation<Color>(Colors.black)),
         Container(
           margin: EdgeInsets.only(left: 7),
-          child: Text("   Pls wait..."),
+          child: Text("   Please wait..."),
         ),
       ],
     ),
@@ -277,3 +304,4 @@ showLoaderDialog(BuildContext context) {
     },
   );
 }
+

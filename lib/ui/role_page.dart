@@ -11,8 +11,10 @@ class _RolePageState extends State<RolePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.grey[900],
         body: Center(
           child: Column(
+
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -20,6 +22,7 @@ class _RolePageState extends State<RolePage> {
                "What's your Role?",
                 style: TextStyle(
                   fontSize: 30,
+                  color: Colors.teal,
                   fontFamily: "BonaNova"
                 ),
               ),
@@ -31,7 +34,7 @@ class _RolePageState extends State<RolePage> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent,
+                      primary: Colors.black87,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -40,7 +43,7 @@ class _RolePageState extends State<RolePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(text: 'resto',),
+                            builder: (context) => LoginPage(text: 'Restaurant',),
                           ));
                      // Navigator.pushNamed(context, MyRoutes.RestaurantLogin);
                     },
@@ -54,7 +57,7 @@ class _RolePageState extends State<RolePage> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent,
+                      primary: Colors.black87,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -63,7 +66,7 @@ class _RolePageState extends State<RolePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(text: 'ngo',),
+                            builder: (context) => LoginPage(text: 'NGO',),
                           ));
                     },
                     child: Text("Non Profit Organization",style: TextStyle(fontFamily: 'BonaNova', fontSize: 15),)),
@@ -76,7 +79,7 @@ class _RolePageState extends State<RolePage> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent,
+                      primary: Colors.black87,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
