@@ -2,12 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/net/flutterfire.dart';
-import 'package:sampleproject/ui/mainpage.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
-import 'package:sampleproject/ui/routes.dart';
-import 'package:sampleproject/ui/signupbar.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'home_view.dart';
+
 import 'login_page.dart';
 
 class RegisterResto extends StatefulWidget {

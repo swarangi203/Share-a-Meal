@@ -134,7 +134,7 @@ class _RestoDashboardState extends State<RestoDashboard> {
                 color: Colors.grey[900],
                 width: double.infinity,
                 height: double.infinity,
-                child: restoHome(),
+                child: restoHome(context),
               ),
               Container(
                 color: Colors.grey[900],

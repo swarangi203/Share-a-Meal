@@ -3,16 +3,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/net/flutterfire.dart';
 import 'package:sampleproject/ui/admin_dashboard.dart';
-import 'package:sampleproject/ui/mainpage.dart';
 import 'package:sampleproject/ui/ngo_dashboard.dart';
 import 'package:sampleproject/ui/register_admin.dart';
 import 'package:sampleproject/ui/register_ngo.dart';
 import 'package:sampleproject/ui/register_resto.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
 import 'package:sampleproject/ui/resto_profile.dart';
-import 'package:sampleproject/ui/routes.dart';
-
-import 'home_view.dart';
 
 class LoginPage extends StatefulWidget {
   final String text;

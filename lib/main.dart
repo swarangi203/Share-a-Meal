@@ -1,21 +1,13 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/ui/admin_dashboard.dart';
 import 'package:sampleproject/ui/ngo_dashboard.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
 import 'package:sampleproject/ui/role_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:sampleproject/ui/home_view.dart';
-import 'package:sampleproject/ui/login_page.dart';
-import 'package:sampleproject/ui/mainpage.dart';
-import 'package:sampleproject/ui/register_resto.dart';
 
-import 'package:sampleproject/ui/routes.dart';
-import 'package:sampleproject/ui/splashscreen.dart';
-import 'ui/authentication.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

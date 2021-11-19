@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sampleproject/net/flutterfire.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
 import 'login_page.dart';
+import 'ngo_dashboard.dart';
 
 class Registerngo extends StatefulWidget {
   final String text;
@@ -350,7 +351,7 @@ class _RegisterngoState extends State<Registerngo> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => RestoDashboard(text: uid),
+                                      builder: (context) => NgoDashboard(text: uid),
                                     ),
                                   );
                                 } else {
@@ -458,7 +459,9 @@ void registerUser(String uid, String role, String name, String email, String add
     'description': "",
     'rating': "0",
     'profilePic': "",
-    'restos': "0"
+    'restos': "0",
+    'authentication': "",
+    'foodquality': ""
   };
   reference.child(uid).set(userdata);
 }
