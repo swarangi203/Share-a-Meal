@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,10 @@ import 'package:sampleproject/ui/resto_edit_profile.dart';
 import 'package:sampleproject/ui/viewProfile.dart';
 import 'package:sampleproject/ui/view_pdf.dart';
 
+import 'admin_dashboard.dart';
 import 'donationPage.dart';
 
-Widget ngoList() {
+Widget adminRestoList() {
   final DatabaseReference reference =
   FirebaseDatabase.instance.reference().child("Users");
   List lists = List();
@@ -30,14 +32,14 @@ Widget ngoList() {
           uids.add(key);
         });
         for(int i=0; i<lists.length; i++)
+        {
+          if(lists[i]['role']=='Restaurant'&&lists[i]['approval']=='no')
           {
-            if(lists[i]['role']=='NGO'&&lists[i]['approval']=='no')
-              {
-                eachList.add(lists[i]);
-                eachuid.add(uids[i]);
-                print(eachuid);
-              }
+            eachList.add(lists[i]);
+            eachuid.add(uids[i]);
+            print(eachuid);
           }
+        }
         return new ListView.builder(
           shrinkWrap: true,
           itemCount: eachList.length,
@@ -125,16 +127,17 @@ Widget ngoList() {
                                                 ),
                                               ),
                                               onPressed: () {
-                                                getDonationDetails(eachuid[index], eachList[index]);
+                                                DatabaseReference reference = FirebaseDatabase.instance.reference().child('Users').child(eachuid[index]).child('approval');
+                                                reference.set('yes');
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          DonationPage(),
+                                                          AdminDashboard(text: FirebaseAuth.instance.currentUser.uid),
                                                     ));
                                               },
                                               child: Text(
-                                                "Donate ",
+                                                "Approve",
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontFamily: "BonaNova"),
@@ -167,13 +170,13 @@ Widget ngoList() {
                                           GestureDetector(
                                             onTap: (){
                                               if(eachList[index]['foodquality']=='')
-                                                {
-                                                  final snackBar = SnackBar(
-                                                    content: Text('Oh no! No certificate to show'),
-                                                  );
-                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                  return;
-                                                }
+                                              {
+                                                final snackBar = SnackBar(
+                                                  content: Text('Oh no! No certificate to show'),
+                                                );
+                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                return;
+                                              }
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(

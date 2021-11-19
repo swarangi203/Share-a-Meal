@@ -10,12 +10,70 @@ class NGODonationDetail extends StatefulWidget {
 }
 Map<dynamic, dynamic> donationMap;
 String transId;
+
 void getNGODonationDetail(Map<dynamic, dynamic> amap, String transactionId){
   donationMap = amap;
   transId= transactionId;
 }
 class _NGODonationDetailState extends State<NGODonationDetail> {
+  bool isDonationComplete=false;
+  Widget donationComplete()
+  {
+    if(isDonationComplete)
+      {
+          return SizedBox(height: 10,);
+      }
+    else return SizedBox(
+      width: 200,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.teal,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              content: Text("Do you wish to Complete the donation?"),
+              actions: <Widget>[
+                // ignore: deprecated_member_use
+                FlatButton(
+                    onPressed: () {
+                      DatabaseReference ref = FirebaseDatabase.instance.reference().child('Donations').child(transId).child('completion');
+                      ref.set('Donation Received');
+                      Navigator.of(ctx).pop();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NgoDashboard(text: FirebaseAuth.instance.currentUser.uid),
+                          ));
 
+                    },
+                    child: Text("Yes")),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+
+
+                    },
+                    child: Text("No"))
+              ],
+            ),
+          );
+        },
+        child: Text(
+          "Complete Donation",
+          style: TextStyle(
+              fontSize: 14,
+              fontFamily: "BonaNova"),
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final DatabaseReference reference =
@@ -38,6 +96,10 @@ class _NGODonationDetailState extends State<NGODonationDetail> {
               DataSnapshot dataValues = snapshot.data.snapshot;
               Map<dynamic, dynamic> values = dataValues.value;
               print(values);
+              if(donationMap['completion']!='no')
+                {
+                    isDonationComplete = true;
+                }
               return new ListView.builder(
                 shrinkWrap: true,
                 itemCount: 1,
@@ -155,56 +217,7 @@ class _NGODonationDetailState extends State<NGODonationDetail> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        SizedBox(
-                                          width: 200,
-                                          height: 50,
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.teal,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(30),
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  content: Text("Do you wish to Complete the donation?"),
-                                                  actions: <Widget>[
-                                                    // ignore: deprecated_member_use
-                                                    FlatButton(
-                                                        onPressed: () {
-                                                          DatabaseReference ref = FirebaseDatabase.instance.reference().child('Donations').child(transId).child('completion');
-                                                          ref.set('Donation Received');
-                                                          Navigator.of(ctx).pop();
-                                                          Navigator.pushReplacement(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder: (context) => NgoDashboard(text: FirebaseAuth.instance.currentUser.uid),
-                                                              ));
-                                                          
-                                                        },
-                                                        child: Text("Yes")),
-                                                    FlatButton(
-                                                        onPressed: () {
-                                                          Navigator.of(ctx).pop();
-                                                         
-                                                         
-                                                        },
-                                                        child: Text("No"))
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            child: Text(
-                                              "Complete Donation",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: "BonaNova"),
-                                            ),
-                                          ),
-                                        ),
+                                        donationComplete(),
                                         SizedBox(
                                           height: 30,
                                         ),

@@ -29,7 +29,7 @@ Widget restoHome(BuildContext context){
         });
         for(int i=0; i<lists.length; i++)
         {
-          if(lists[i]['restaurant']==FirebaseAuth.instance.currentUser.uid)
+          if(lists[i]['restaurant']==FirebaseAuth.instance.currentUser.uid&&lists[i]['completion']=='no')
           {
             eachList.add(lists[i]);
             eachuid.add(uids[i]);

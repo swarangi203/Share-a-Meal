@@ -31,7 +31,7 @@ Widget restoList() {
         });
         for(int i=0; i<lists.length; i++)
         {
-          if(lists[i]['role']=='Restaurant')
+          if(lists[i]['role']=='Restaurant'&&lists[i]['approval']=='no')
           {
             eachList.add(lists[i]);
             eachuid.add(uids[i]);

@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/net/flutterfire.dart';
 import 'package:sampleproject/ui/resto_dashboard.dart';
+import 'admin_dashboard.dart';
 import 'login_page.dart';
 
 class Registeradmin extends StatefulWidget {
@@ -23,9 +24,7 @@ class _RegisteradminState extends State<Registeradmin> {
   TextEditingController _emailField = TextEditingController();
   TextEditingController _passwordField = TextEditingController();
   TextEditingController _nameField = TextEditingController();
-  TextEditingController _contactField = TextEditingController();
-  TextEditingController _addressField = TextEditingController();
-  TextEditingController _repasswordField = TextEditingController();
+  TextEditingController _referral = TextEditingController();
   String _myActivity;
   String _myActivityResult;
 
@@ -56,11 +55,13 @@ class _RegisteradminState extends State<Registeradmin> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.grey[900],
         appBar:
-        AppBar(title: Text("Share A Meal"), backgroundColor: Colors.green, leading: IconButton(
+        AppBar(title: Text("Share A Meal", style: TextStyle(fontFamily: "BonaNova",)), backgroundColor: Colors.black, leading: IconButton(
           onPressed: () {},
           icon: Icon(Icons.restaurant_menu_outlined),
-        ),),
+        ),
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Form(
@@ -79,24 +80,24 @@ class _RegisteradminState extends State<Registeradmin> {
                         autocorrect: true,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "Name can't be empty";
+                            return "Name of the Admin can't be empty";
                           }
                           return null;
                         },
                         controller: _nameField,
                         decoration: InputDecoration(
                           labelText: 'Name',
-                          hintText: 'Enter your name',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
@@ -124,17 +125,18 @@ class _RegisteradminState extends State<Registeradmin> {
                         controller: _emailField,
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          hintText: 'Enter your Email',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
@@ -154,24 +156,24 @@ class _RegisteradminState extends State<Registeradmin> {
                         autocorrect: true,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "Admin referral can't be empty";
+                            return "Admin Referral can't be empty";
                           }
                           return null;
                         },
-                        controller: _contactField,
+                        controller: _referral,
                         decoration: InputDecoration(
                           labelText: 'Admin Referral',
-                          hintText: 'Enter your Referral',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            borderRadius: BorderRadius.all(Radius.circular(30,),),
                             borderSide:
                             BorderSide(color: Colors.black, width: 1),
                           ),
@@ -201,10 +203,11 @@ class _RegisteradminState extends State<Registeradmin> {
                         controller: _passwordField,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          hintText: 'Enter your Password',
+                          labelStyle: TextStyle(color: Colors.white60, fontFamily: "BonaNova",),
+
                           hintStyle: TextStyle(color: Colors.grey),
                           filled: true,
-                          fillColor: Colors.white70,
+                          fillColor: Colors.grey[800],
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                             borderSide:
@@ -227,7 +230,7 @@ class _RegisteradminState extends State<Registeradmin> {
                     height: 50,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: Colors.teal,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(35),
                           ),
@@ -240,12 +243,12 @@ class _RegisteradminState extends State<Registeradmin> {
                                 _emailField.text, _passwordField.text);
                             if (shouldNavigate) {
                               String uid = FirebaseAuth.instance.currentUser.uid;
-                              registerUser(uid, temp, _nameField.text, _emailField.text, _addressField.text, _contactField.text);
+                              registerUser(uid, temp, _nameField.text, _emailField.text, _referral.text, _passwordField.text);
                               Navigator.pop(context);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RestoDashboard(text: uid),
+                                  builder: (context) => AdminDashboard(text: uid),
                                 ),
                               );
                             } else {
@@ -298,7 +301,7 @@ class _RegisteradminState extends State<Registeradmin> {
                     },
                     child: new Text(
                       "Already have an account ? SignIn",
-                      style: TextStyle(fontSize: 20, fontFamily: "BonaNova"),
+                      style: TextStyle(fontSize: 20, fontFamily: "BonaNova", color: Colors.white),
                     ),
                   ),
                   SizedBox(
@@ -336,7 +339,7 @@ class _RegisteradminState extends State<Registeradmin> {
   }
 }
 
-void registerUser(String uid, String role, String name, String email, String address, String contact){
+void registerUser(String uid, String role, String name, String email, String contact, String address){
   Map<String, String> userdata = {
     'name': name,
     'email': email,
